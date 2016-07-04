@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# $1 bot key
+# $2 chat_id
+
 curl https://blockchain.info/de/ticker -o blockchain-data.txt
 bitcoinJSON="blockchain-data.txt"
 
@@ -31,9 +34,7 @@ do
 		fi
 	
 		echo $pushMessage
-		# Pushover user key is passed as argument to this script $1
-		# API token $2
-		curl --data "token=$2&user=$1&message=$pushMessage&title=Bitcoin%20Kurs&url=https%3A%2F%2Fwww.bitcoin.de%2Fde&sound=cashregister" https://api.pushover.net/1/messages.json
+		curl --data-raw "chat_id=$2&text=$pushMessage" https://api.telegram.org/bot$1/sendMessage
 		
 		# write new value in txt file
 		echo "$val2" > "value.EUR.txt"

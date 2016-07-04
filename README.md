@@ -1,15 +1,15 @@
-# Bitcoin Kurs
+# Bitcoin Exchange Rates
 
-Uses the blockchain.info API to get the latest bitcoin exchange rates (docs: <https://blockchain.info/de/api/exchange_rates_api>) and send the current value in Euros via Pushover API (docs: <https://pushover.net/api>).
+Uses the blockchain.info API to get the latest bitcoin exchange rates (docs: <https://blockchain.info/de/api/exchange_rates_api>) and send the current value in Euros via Telegram API.
 
 ## Execute the script
 
 Call the script eg with a cronjob with:
 ```
-./bitcoin.sh PUSHOVER_USER_KEY PUSHOVER_API_TOKEN
+./bitcoin.sh TELEGRAM_BOT_KEY CHAT_ID
 ```
 
-Replace `PUSHOVER_USER_KEY` with your user key from Pushover App and `PUSHOVER_API_TOKEN` with your API token
+Replace `TELEGRAM_BOT_KEY` with API key `CHAT_ID` with Telegram chat id.
 
 ## License
 
