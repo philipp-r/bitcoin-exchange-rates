@@ -25,16 +25,16 @@ coingeckoUrl = "https://api.coingecko.com/api/v3/simple/price?vs_currencies=EUR&
 coinData = json.loads(requests.get(coingeckoUrl).text)
 
 message = ""
-message = message + "BTC: " + str( round(coinData["bitcoin"]["eur"],2) ) + " EUR (" + str( round(coinData["bitcoin"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "ETH: " + str( round(coinData["ethereum"]["eur"],2) ) + " EUR (" + str( round(coinData["ethereum"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BCH: " + str( round(coinData["bitcoin-cash"]["eur"],2) ) + " EUR (" + str( round(coinData["bitcoin-cash"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BSV: " + str( round(coinData["bitcoin-cash-sv"]["eur"],2) ) + " EUR (" + str( round(coinData["bitcoin-cash-sv"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "XRP: " + str( round(coinData["ripple"]["eur"],2) ) + " EUR (" + str( round(coinData["ripple"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "RSR: " + str( round(coinData["reserve-rights-token"]["eur"],2) ) + " EUR (" + str( round(coinData["reserve-rights-token"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BNB: " + str( round(coinData["binancecoin"]["eur"],2) ) + " EUR (" + str( round(coinData["binancecoin"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "DOGE: " + str( round(coinData["dogecoin"]["eur"],2) ) + " EUR (" + str( round(coinData["dogecoin"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "BTC: <code>" + str( round(coinData["bitcoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "ETH: <code>" + str( round(coinData["ethereum"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["ethereum"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "BCH: <code>" + str( round(coinData["bitcoin-cash"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin-cash"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "BSV: <code>" + str( round(coinData["bitcoin-cash-sv"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin-cash-sv"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "XRP: <code>" + str( round(coinData["ripple"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["ripple"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "RSR: <code>" + str( round(coinData["reserve-rights-token"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["reserve-rights-token"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "BNB: <code>" + str( round(coinData["binancecoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["binancecoin"]["eur_24h_change"],1) ) + "%) \n"
+message = message + "DOGE: <code>" + str( round(coinData["dogecoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["dogecoin"]["eur_24h_change"],1) ) + "%) \n"
 print (message)
 
 # send message to telegram
-telegramUrl = "https://api.telegram.org/bot"+sys.argv[1]+"/sendMessage?chat_id="+sys.argv[2]+"&text="+message
+telegramUrl = "https://api.telegram.org/bot"+sys.argv[1]+"/sendMessage?chat_id="+sys.argv[2]+"&parse_mode=HTML&text="+message
 apiResponse = json.loads(requests.get(telegramUrl).text)
