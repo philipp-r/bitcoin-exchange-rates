@@ -1,5 +1,7 @@
 <?php
 
+/*
+
 $telegram_URL = "https://api.telegram.org/botYOUR_API_KEY_FROM_TELEGRAM/";
 
 $post_data_json = file_get_contents('php://input');
@@ -22,7 +24,7 @@ function telegram_send($message, $keyboard=""){
 
 // Conatains command /get
 if (strpos($post_data['message']['text'], '/get') !== false) {
-	
+
 	// get bitcoin exchange rates
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://blockchain.info/ticker");
@@ -32,7 +34,7 @@ if (strpos($post_data['message']['text'], '/get') !== false) {
 	$bitcoin_data = json_decode($bitcoin_json_data, true);
 	curl_close($ch);
 	// usage: $bitcoin_data['EUR']['15m']
-	
+
 	// EUR
 	if( $post_data['message']['text'] == "/get EUR" ){
 		// send message with Telegram API
