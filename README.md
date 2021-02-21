@@ -1,18 +1,18 @@
 # Bitcoin Exchange Rates
 
-Uses the blockchain.info API to get the latest bitcoin exchange rates (docs: <https://blockchain.info/de/api/exchange_rates_api>) and send the current value in Euros via Telegram API.
+Uses the coingecko.com API to get the latest crypto exchange rates (docs: <https://www.coingecko.com/de/api>) and send the current value via Telegram bot API.
 
-Like this? Donate bitcoins to 13nr9dTqCYdrhifeVaS6AwAUgz2U4EGxXZ 
+Like this? Donate bitcoins to _bc1q6ukhnrvkmp3zsy463sxh4g00f02vpxmc20kl0u_
 
 ## Execute the script
 
 Call the script eg with a cronjob with:
 ```
-./bitcoin.sh TELEGRAM_BOT_KEY CHAT_ID
+python3 bitcoin.py bot_key chat_id
 ```
 
-Replace `TELEGRAM_BOT_KEY` with API key `CHAT_ID` with Telegram chat id.
+Replace `bot_key` with API key `chat_id` with Telegram chat id.
 
 ## License
 
-Do what you want with the source code but keep a credit to the original author (<https://github.com/philipp-r>).
+Do what you want with the source code but keep a credit to the original author <https://github.com/philipp-r>.
