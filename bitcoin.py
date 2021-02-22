@@ -9,31 +9,34 @@ import sys
 ## can find out chat_id with https://api.telegram.org/bot[bot_key]/getUpdates
 
 
-
 # Coins: as in https://api.coingecko.com/api/v3/coins/list
-## bitcoin
-## ethereum
-## bitcoin-cash
-## bitcoin-cash-sv
-## ripple
-## reserve-rights-token
-## binancecoin
-## dogecoin
+coinsWatch = {
+  "bitcoin": "BTC",
+  "ethereum": "ETH",
+  "bitcoin-cash": "BCH",
+  "bitcoin-cash-sv": "BSV",
+  "ripple": "XRP",
+  "reserve-rights-token": "RSR",
+  "binancecoin": "BNB",
+  "dogecoin": "DOGE"
+}
+
 
 # get API data from coingecko
-coingeckoUrl = "https://api.coingecko.com/api/v3/simple/price?vs_currencies=EUR&ids=bitcoin,bitcoin-cash,bitcoin-cash-sv,ethereum,ripple,reserve-rights-token,dogecoin,binancecoin&include_24hr_change=true"
+coinList = ""
+for coin in coinsWatch:
+    coinList = coinList+coin+","
+print (coinList)
+coingeckoUrl = "https://api.coingecko.com/api/v3/simple/price?vs_currencies=EUR&ids="+coinList+"&include_24hr_change=true"
 coinData = json.loads(requests.get(coingeckoUrl).text)
 
+
+# build message
 message = ""
-message = message + "BTC: <code>" + str( round(coinData["bitcoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "ETH: <code>" + str( round(coinData["ethereum"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["ethereum"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BCH: <code>" + str( round(coinData["bitcoin-cash"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin-cash"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BSV: <code>" + str( round(coinData["bitcoin-cash-sv"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["bitcoin-cash-sv"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "XRP: <code>" + str( round(coinData["ripple"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["ripple"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "RSR: <code>" + str( round(coinData["reserve-rights-token"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["reserve-rights-token"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "BNB: <code>" + str( round(coinData["binancecoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["binancecoin"]["eur_24h_change"],1) ) + "%) \n"
-message = message + "DOGE: <code>" + str( round(coinData["dogecoin"]["eur"],2) ).replace(".", ",") + "</code> EUR (" + str( round(coinData["dogecoin"]["eur_24h_change"],1) ) + "%) \n"
+for coin in coinsWatch:
+    message = message + coinsWatch[coin] + ": <code>" + str( round(coinData[coin]["eur"],2) ).replace(".", ",") + " EUR (" + str( round(coinData[coin]["eur_24h_change"],1) ) + "%) </code>\n"
 print (message)
+
 
 # send message to telegram
 telegramUrl = "https://api.telegram.org/bot"+sys.argv[1]+"/sendMessage?chat_id="+sys.argv[2]+"&parse_mode=HTML&text="+message
